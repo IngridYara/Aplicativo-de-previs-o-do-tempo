@@ -1,14 +1,75 @@
-*{
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 
+*{
     padding: 0;
-    margin:0;
-    box-sizing: border-box
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+    background-color: hsl(243, 96%, 9%);
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    padding-top: 30px;
+}
+
+header{
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    justify-items: center;
+    width: 90%;
+}
+
+nav{
+
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    justify-content: space-between;
 }
 
 .container{
 
     position: relative;
-    max-width: 320px;
-    width: 100%;
-    margin: 50px auto 30px;
+    max-width: 100%;
+    justify-content: space-between;
+    
+}
+
+.select-btn{
+
+    display: flex;
+    height: 50px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: hsl(243, 27%, 20%);
+    color: hsl(0, 0%, 100%);
+   
+}
+
+.select-btn > span, .select-btn > img{
+
+    margin: 0 5px;
+}
+.select-btn .arrow-dwn{
+
+    display: flex;
+    height: 21px;
+    width: 21px;
+    color: hsl(0, 0%, 100%);
+    font-size: 14px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
 }
