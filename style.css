@@ -652,6 +652,9 @@ aside > div.horarios > div.horario > div > img{
     main > section > .fundo-tempo .info-cidade{
 
         margin-top: 20px;
+        max-width: 100%;
+        margin-bottom: 0;
+        
 
     }
 
@@ -659,7 +662,7 @@ aside > div.horarios > div.horario > div > img{
 
         display: flex;
         justify-content: space-evenly;
-        width: 100%;
+        max-width: 100%;
 
     }
 
@@ -667,6 +670,12 @@ aside > div.horarios > div.horario > div > img{
 
         max-width: 40%;
         margin-right: 0;
+
+    }
+
+    main > section > .fundo-tempo .temperatura p{
+
+        font-size: 5em;
 
     }
 
@@ -687,6 +696,19 @@ aside > div.horarios > div.horario > div > img{
         width: 45%;
         
     }
+
+    main > section > .cards-info > .card .descricao{
+
+        font-size: 0.8em;
+        
+    }
+
+    main > section > .cards-info > .card .descricao-temp{
+
+        font-size: 1.5em;
+        
+    }
+    
 
     main > section > .semana > .dias .dia{
 
@@ -838,6 +860,12 @@ aside > div.horarios > div.horario > div > img{
 
     }
 
+    main > section article.semana{
+
+        padding-left: 20px;
+        
+    }
+
     main > section article.semana > p{
 
         font-size: 1.2em;
@@ -985,6 +1013,8 @@ aside > div.horarios > div.horario > div > img{
         max-width: 100%;
         background-position: center;
         flex-flow: row wrap;
+        margin-bottom: 0;
+        margin-top: 0;
     }
 
     main > section > .fundo-tempo .info-cidade{
@@ -1009,6 +1039,12 @@ aside > div.horarios > div.horario > div > img{
         max-width: 40%;
         margin-right: 0;
 
+    }
+
+    main > section article.semana{
+
+        padding-left: 10px;
+        
     }
 
     main > section article.semana > p{
@@ -1057,6 +1093,11 @@ aside > div.horarios > div.horario > div > img{
     aside > .horarios .horario {
 
         align-items: center;
+    }
+
+    aside > .horarios .horario p{
+
+        font-size: 1.2em;
     }
 }
 
@@ -1239,6 +1280,11 @@ aside > div.horarios > div.horario > div > img{
 
         align-items: center;
     }
+
+    aside > .horarios .horario p{
+
+        font-size: 1.2em;
+    }
 }
 
 @media screen and (min-width: 901px) and (max-width:1000px){
@@ -1419,6 +1465,11 @@ aside > div.horarios > div.horario > div > img{
     aside > .horarios .horario {
 
         align-items: center;
+    }
+
+    aside > .horarios .horario p{
+
+        font-size: 1.2em;
     }
 }
 
