@@ -24,7 +24,7 @@
 
       <div class="container">
 
-        <div class="select-btn">
+        <div class="select-btn" id="menu1">
           <img src="assets/images/icon-units.svg" alt="">
           <span class="btn-text">Units</span>
           <span class="arrow-dwn">
@@ -32,7 +32,7 @@
           </span>
         </div>
 
-        <ul class="list-items">
+        <ul class="list-items" id="opcoes1">
 
           <li class="item">
             <span class="item-text">Switch to Imperial</span>
@@ -42,14 +42,14 @@
             <span class="item-text legenda">Temperature</span>
           </li>
           
-          <li class="item">
+          <li class="item" id="celcius">
             <span class="item-text">Celsius (°C)</span>
             <span class="checkbox">
               <i class="fa-solid fa-check check-icon"></i>
             </span>
           </li>
 
-          <li class="item">
+          <li class="item" id="fahrenheit">
             <span class="item-text">Fahrenheit (°F)</span>
             <span class="checkbox">
               <i class="fa-solid fa-check check-icon"></i>
@@ -62,14 +62,14 @@
             <span class="item-text legenda">Wind Speed</span>
           </li>
 
-          <li class="item">
+          <li class="item" id="km/h">
             <span class="item-text">Km/h</span>
             <span class="checkbox">
               <i class="fa-solid fa-check check-icon"></i>
             </span>
           </li>
 
-          <li class="item">
+          <li class="item" id="mph">
             <span class="item-text">mph</span>
             <span class="checkbox">
               <i class="fa-solid fa-check check-icon"></i>
@@ -82,29 +82,19 @@
             <span class="item-text legenda">Precepitation</span>
           </li>
 
-          <li class="item">
+          <li class="item" id="mm">
               <span class="item-text">Millimeters (mm)</span>
               <span class="checkbox">
                 <i class="fa-solid fa-check check-icon"></i>
               </span>
           </li>
 
-          <li class="item">
+          <li class="item" id="in">
             <span class="item-text">Inches (in)</span>
             <span class="checkbox">
               <i class="fa-solid fa-check check-icon"></i>
             </span>
           </li>
-
-          <ul class="dropdown_menu">
-            <li class="item"><span class="item-text">Monday</span></li>
-            <li class="item"><span class="item-text">Tuesday</span></li>
-            <li class="item"><span class="item-text">Wednesday</span></li>
-            <li class="item"><span class="item-text">Thursday</span></li>
-            <li class="item"><span class="item-text">Friday</span></li>
-            <li class="item"><span class="item-text">Saturday</span></li>
-            <li class="item"><span class="item-text">Sunday</span></li>
-          </ul>
 
         </ul>
 
@@ -116,103 +106,108 @@
     <section class="secao1">
       <h1>How's the sky looking today?</h1>
       <article class="busca">
-        <input type="text" name="" id="" placeholder="Search for a place...">
-        <button type="submit">Search</button>
+        <div>
+          <img src="assets/images/icon-search.svg" alt="">
+          <input type="text" name="" id="city-input" placeholder="Search for a place..." autocomplete="off">
+        </div>
+        <button type="submit" id="search">Search</button>
       </article>
     </section>
 
     <section class="secao2">
       <article class="fundo-tempo">
         <div class="info-cidade">
-          <p class="cidade">Berlin, Germany</p>
-          <p class="dia">Tuesday, Aug 5, 2025</p>
+          <p class="cidade" id="city">Berlin, Germany</p>
+          <p class="dia" id="day">Tuesday, Aug 5, 2025</p>
         </div>
 
         <div class="temperatura">
-          <img src="/assets/images/icon-sunny.webp" alt="">
-          <p>20°</p>
+          <img id="iconTempo" src="/assets/images/icon-clear.webp" alt="">
+          <p id="temperature">20°</p>
         </div>
       </article>
 
       <article class="cards-info">
         <div class="card">
           <p class="descricao">Feels Like</p>
-          <p class="descricao-temp">18°</p>
+          <p class="descricao-temp" id="feelslike">18°</p>
         </div>
         <div class="card">
           <p class="descricao">Humidity</p>
-          <p class="descricao-temp">46%</p>
+          <p class="descricao-temp" id="humidity">46%</p>
         </div>
         <div class="card">
           <p class="descricao">Wind</p>
-          <p class="descricao-temp">14 km/h</p>
+          <p class="descricao-temp" id="windElement">14 km/h</p>
         </div>
         <div class="card">
           <p class="descricao">Precepitation</p>
-          <p class="descricao-temp">0 mm</p>
+          <p class="descricao-temp" id="precepitationElement">0 mm</p>
         </div>
       </article>
 
       <article class="semana">
         <p>Daily forecast</p>
 
-        <div class="dias">
+        <div class="dias" id="divDias">    
+          
           <div class="dia">
-            <p>Tue</p>
-            <img src="/assets/images/icon-rain.webp" alt="">
-            <div class="temperaturas">
-              <p>20°</p>
-              <p>14°</p>
-            </div>
+                <p>Tue</p>
+                <img src="/assets/images/icon-rain.webp" alt="">
+                <div class="temperaturas">
+                <p class="tempMax">20°</p>
+                <p class="tempMin">14°</p>
+                </div>
           </div>
           <div class="dia">
-            <p>Wed</p>
-            <img src="/assets/images/icon-drizzle.webp" alt="">
-            <div class="temperaturas">
-              <p>21°</p>
-              <p>15°</p>
-            </div>
+                <p>Wed</p>
+                <img src="/assets/images/icon-drizzle.webp" alt="">
+                <div class="temperaturas">
+                <p class="tempMax">21°</p>
+                <p class="tempMin">15°</p>
+                </div>
           </div>
           <div class="dia">
-            <p>Thu</p>
-            <img src="/assets/images/icon-sunny.webp" alt="">
-            <div class="temperaturas">
-              <p>24°</p>
-              <p>14°</p>
-            </div>
+                <p>Thu</p>
+                <img src="/assets/images/icon-clear.webp" alt="">
+                <div class="temperaturas">
+                <p class="tempMax">24°</p>
+                <p class="tempMin">14°</p>
+                </div>
           </div>
           <div class="dia">
-            <p>Fri</p>
-            <img src="/assets/images/icon-partly-cloudy.webp" alt="">
-            <div class="temperaturas">
-              <p>25°</p>
-              <p>13°</p>
-            </div>
+                <p>Fri</p>
+                <img src="/assets/images/icon-partly-clouds.webp" alt="">
+                <div class="temperaturas">
+                <p class="tempMax">25°</p>
+                <p class="tempMin">13°</p>
+                </div>
           </div>
           <div class="dia">
-            <p>Sat</p>
-            <img src="/assets/images/icon-storm.webp" alt="">
-            <div class="temperaturas">
-              <p>21°</p>
-              <p>15°</p>
-            </div>
+                <p> Sat</p>
+                <img src="/assets/images/icon-storm.webp" alt="">
+                <div class="temperaturas">
+                <p class="tempMax">21°</p>
+                <p class="tempMin">15°</p>
+                </div>
           </div>
           <div class="dia">
-            <p>Sun</p>
-            <img src="/assets/images/icon-snow.webp" alt="">
-            <div class="temperaturas">
-              <p>25°</p>
-              <p>16°</p>
-            </div>
+                <p>Sun</p>
+                <img src="/assets/images/icon-snow.webp" alt="">
+                <div class="temperaturas">
+                <p class="tempMax">25°</p>
+                <p class="tempMin">16°</p>
+                </div>
           </div>
           <div class="dia">
-            <p>Mon</p>
-            <img src="/assets/images/icon-fog.webp" alt="">
-            <div class="temperaturas">
-              <p>24°</p>
-              <p>15°</p>
-            </div>
+                <p>Mon</p>
+                <img src="/assets/images/icon-fog.webp" alt="">
+                <div class="temperaturas">
+                <p class="tempMax">24°</p>
+                <p class="tempMin">15°</p>
+                </div>
           </div>
+          
         </div>
       </article>
     </section>
@@ -220,78 +215,100 @@
     <aside>
 
       <p>Hourly forecast</p>
-      <p>Tuesday</p>
 
-      <div class="horarios">
+      <div class="container">
+        <div class="select-btn" id="menu2">
 
+          <span class="btn-text">Tuesday</span>
+          <span class="arrow-dwn">
+            <i class="fa-solid fa-chevron-down"></i>
+          </span>
+
+        </div>
+
+        <ul class="list-items" id="opcoes2">
+            <li class="item item2"><span id="Mon" class="item-text">Monday</span></li>
+            <li class="item item2"><span id="Tue" class="item-text">Tuesday</span></li>
+            <li class="item item2"><span id="Wed" class="item-text">Wednesday</span></li>
+            <li class="item item2"><span id="Thu" class="item-text">Thursday</span></li>
+            <li class="item item2"><span id="Fri" class="item-text">Friday</span></li>
+            <li class="item item2"><span id="Sat" class="item-text">Saturday</span></li>
+            <li class="item item2"><span id="Sun" class="item-text">Sunday</span></li>
+          </ul>
+      </div>
+
+      <div class="horarios" id="horarios">
+      
         <div class="horario">
           <div>
-            <img src="/assets/images/icon-overcast.webp" alt="">
-            <p>3 PM</p>
+            <img src="/assets/images/icon-clouds.webp" alt="">
+            <p class="hora">3 PM</p>
           </div>
-          <p>20°</p>
+          <p class="tempHora">20°</p>
         </div>
         
         <div class="horario">
           <div>
-            <img src="/assets/images/icon-partly-cloudy.webp" alt="">
-            <p>4 PM</p>
+            <img src="/assets/images/icon-partly-clouds.webp" alt="">
+            <p class="hora">4 PM</p>
             
           </div>
-          <p>20°</p>
+          <p class="tempHora">20°</p>
         </div>
         <div class="horario">
           <div>
-            <img src="/assets/images/icon-sunny.webp" alt="">
-            <p>5 PM</p>
+            <img src="/assets/images/icon-clear.webp" alt="">
+            <p class="hora">5 PM</p>
             
           </div>
-          <p>20°</p>
+          <p class="tempHora">20°</p>
         </div>
         <div class="horario">
           <div>
-            <img src="assets/images/icon-overcast.webp" alt="">
-            <p>6 PM</p>
+            <img src="assets/images/icon-clouds.webp" alt="">
+            <p class="hora">6 PM</p>
             
           </div>
-          <p>19°</p>
+          <p class="tempHora">19°</p>
         </div>
         <div class="horario">
           <div>
             <img src="assets/images/icon-snow.webp" alt="">
-            <p>7 PM</p>
+            <p class="hora">7 PM</p>
             
           </div>
-          <p>18°</p>
+          <p class="tempHora">18°</p>
         </div>
         <div class="horario">
           <div>
             <img src="assets/images/icon-fog.webp" alt="">
-            <p>8 PM</p>
+            <p class="hora">8 PM</p>
             
           </div>
-          <p>18°</p>
+          <p class="tempHora">18°</p>
         </div>
         <div class="horario">
           <div>
             <img src="assets/images/icon-snow.webp" alt="">
-            <p>9 PM</p>
+            <p class="hora">9 PM</p>
             
           </div>
-          <p>17°</p>
+          <p class="tempHora">17°</p>
         </div>
         <div class="horario">
           <div>
-            <img src="assets/images/icon-overcast.webp" alt="">
-            <p>10 PM</p>
+            <img src="assets/images/icon-clouds.webp" alt="">
+            <p class="hora">10 PM</p>
             
           </div>
-          <p>17°</p>
+          <p class="tempHora">17°</p>
         </div>
+      
       </div>
     </aside>
   </main>
 
+  <script src="env.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
