@@ -420,7 +420,7 @@ const showWeatherData = async (city) =>{
 
         aux2 += `<div class="dia">
                     <p>${aux.charAt(0).toUpperCase() + aux.slice(1)}</p>
-                    <img src="/assets/images/${imgDiaSemanal}" alt="">
+                    <img src="./assets/images/${imgDiaSemanal}" alt="">
                     <div class="temperaturas">
                     <p class="tempMax">${Math.trunc(data2.daily.temperature_2m_max[i])}°</p>
                     <p class="tempMin">${Math.trunc(data2.daily.temperature_2m_min[i])}°</p>
@@ -506,7 +506,7 @@ const showWeatherData = async (city) =>{
 
                     aux3 += `<div class="horario">
                                 <div>
-                                    <img src="assets/images/${imgDiaHorario}" alt="">
+                                    <img src="./assets/images/${imgDiaHorario}" alt="">
                                     <p class="hora">${element.innerText}</p>
                                     
                                 </div>
