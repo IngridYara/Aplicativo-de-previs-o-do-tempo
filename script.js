@@ -1,33 +1,48 @@
 const apiKey = window.ENV.API_KEY
 const apiKey2 = window.ENV.API_KEY2
 
+const conteudo = document.getElementById("conteudo")
+const secao2 = document.querySelector(".secao2")
+const aside = document.getElementById("aside")
 const menu1 = document.querySelector("#menu1")
 const menu2 = document.getElementById("menu2")
 const opcoes1 = document.getElementById("opcoes1")
 const opcoes2 = document.getElementById("opcoes2")
 const items = document.querySelectorAll(".item")
 const items2 = document.querySelectorAll(".item2")
-
+const nomeSelecionado = document.getElementById("nomeSelecionado")
 const cityInput = document.querySelector("#city-input")
 const searchBtn = document.querySelector("#search")
 
-const cityElement = document.getElementById("city")
-const dayElement = document.getElementById("day")
-const temperatureElement = document.getElementById("temperature")
-const humidityElement = document.getElementById("humidity")
-const windElement = document.getElementById("windElement")
-const feelslike = document.getElementById("feelslike")
-const iconTempo = document.getElementById("iconTempo")
-const precepitationElement = document.getElementById("precepitationElement")
 const divDias = document.getElementById("divDias")
 const pHora = document.querySelectorAll(".hora")
 const divHorarios = document.getElementById("horarios")
 
 const dataAtual = new Date()
 let tempHorariosDia = []
+let celciusAtivo = 1
+let fahrenheitAtivo = 0
+let mphAtivo = 0
+let kmhAtivo = 1
+let inAtivo = 0
+let mmAtivo = 1
+
+let citys = [
+
+    "Contagem",
+    "Belo Horizonte",
+    "Recife",
+    "Tokyo",
+    "São Paulo",
+    "Rio de Janeiro",
+    "Manaus"
+]
+
+let sortedCitys = citys.sort()
 
 let imagens = ["icon-drizzle.webp", "icon-fog.webp", "icon-clouds.webp", "icon-partly-clouds.webp", "icon-rain.webp", 
     "icon-rain.webp", "icon-snow.webp", "icon-storm.webp", "icon-clear.webp"]
+
 
 menu1.addEventListener("click", () => {
 
@@ -42,7 +57,7 @@ menu1.addEventListener("click", () => {
     }
 })
 
-menu2.addEventListener("click", () => {
+menu2.addEventListener("click", (e) => {
 
     menu2.classList.toggle("open")
 
@@ -59,69 +74,66 @@ items.forEach((item => {
 
     item.addEventListener("click", () => {
 
-        if (!(item.classList.contains("nochecked"))) {
-            item.classList.toggle("checked")
-        }   
+        let retiraChecked
 
-        if (item.classList.contains("checked")) {
+        if (item.id == "celcius") {
+            
+            retiraChecked = document.getElementById("fahrenheit")
+            retiraChecked.classList.remove("checked")
+            item.classList.add("checked")
+            converteTemperatura()
+        }
 
-            let retiraChecked
+        if (item.id == "fahrenheit") {
+            
+            retiraChecked = document.getElementById("celcius")
+            retiraChecked.classList.remove("checked")
+            item.classList.add("checked")
 
-            if (item.id == "celcius") {
-                
-                retiraChecked = document.getElementById("fahrenheit")
-                retiraChecked.classList.remove("checked")
+            converteTemperatura()
+        }
 
-                converteTemperatura()
-            }
+        if (item.id == "km/h") {
+            
+            retiraChecked = document.getElementById("mph")
+            retiraChecked.classList.remove("checked")
+            item.classList.add("checked")
+            converteVelocidade()
+        }
 
-            if (item.id == "fahrenheit") {
-                
-                retiraChecked = document.getElementById("celcius")
-                retiraChecked.classList.remove("checked")
+        if (item.id == "mph") {
+            
+            retiraChecked = document.getElementById("km/h")
+            retiraChecked.classList.remove("checked")
+            item.classList.add("checked")
+            converteVelocidade()
+        }
 
-                converteTemperatura()
-            }
+        if (item.id == "mm") {
+            
+            retiraChecked = document.getElementById("in")
+            retiraChecked.classList.remove("checked")
+            item.classList.add("checked")
+            converteComprimento()
+        }
 
-            if (item.id == "km/h") {
-                
-                retiraChecked = document.getElementById("mph")
-                retiraChecked.classList.remove("checked")
-
-                converteVelocidade()
-            }
-
-            if (item.id == "mph") {
-                
-                retiraChecked = document.getElementById("km/h")
-                retiraChecked.classList.remove("checked")
-
-                converteVelocidade()
-            }
-
-            if (item.id == "mm") {
-                
-                retiraChecked = document.getElementById("in")
-                retiraChecked.classList.remove("checked")
-
-                converteComprimento()
-            }
-
-            if (item.id == "in") {
-                
-                retiraChecked = document.getElementById("mm")
-                retiraChecked.classList.remove("checked")
-
-                converteComprimento()
-            }
+        if (item.id == "in") {
+            
+            retiraChecked = document.getElementById("mm")
+            retiraChecked.classList.remove("checked")
+            item.classList.add("checked")
+            converteComprimento()
         }
     }) 
 }))
 
 items2.forEach((item =>{
 
+    
     item.addEventListener("click", () =>{
 
+        item.classList.toggle("checked")
+        
         items2.forEach((item2 => {
 
             if(item != item2){
@@ -129,40 +141,58 @@ items2.forEach((item =>{
             }
         }))
 
-        showWeatherData(cityInput.value)
+        if (item.classList.contains("checked")) {
+            nomeSelecionado.innerText = item.innerText
+            
+        }else{
+            nomeSelecionado.innerText = "Tuesday"
+        }
+
+        if(cityInput.value){
+            
+            showWeatherData(cityInput.value)
+            converteTemperatura()
+        }
+        else
+            telaInicial()
     })
+
 }))
 
 async function converteTemperatura(){
 
     let verificaChecked = document.getElementById("fahrenheit")
+    const temperatureElement = document.getElementById("temperature")
     const pTempMax = document.querySelectorAll(".tempMax")
     const pTempMin = document.querySelectorAll(".tempMin")
     const ptempHora = document.querySelectorAll(".tempHora")
 
     const data = await getWheatherData(cityInput.value)
-    const data2 = await getOpenMeteoData2(data.coord.lon, data.coord.lat)
+    let data2 = ""
+
+    if(data != 400 && data != 404)
+        data2 = await getOpenMeteoData2(data.coord.lon, data.coord.lat)
 
     if (verificaChecked.classList.contains("checked")) {  
         
-        if (cityInput.value == "") {
+        if (cityInput.value == "" && fahrenheitAtivo != 1) {
             
-            temperatureElement.innerText = "68°"
-            feelslike.innerText = "64°"
+            temperatureElement.innerText = Math.trunc((Number(temperatureElement.innerText.slice(0, -1)) * (9/5)) + 32) + "°"
+            feelslike.innerText = Math.trunc((Number(feelslike.innerText.slice(0, -1)) * (9/5)) + 32) + "°"
 
             pTempMax.forEach(element => {
-                element.innerText = "68°"
+                element.innerText = Math.trunc((Number(element.innerText.slice(0, -1)) * (9/5)) + 32) + "°"
             });
 
             pTempMin.forEach(element => {
-                element.innerText = "58°"
+                element.innerText = Math.trunc((Number(element.innerText.slice(0, -1)) * (9/5)) + 32) + "°"
             });
 
             ptempHora.forEach(element =>{
-                element.innerText = "20°"
+                element.innerText = Math.trunc((Number(element.innerText.slice(0, -1)) * (9/5)) + 32) + "°"
             })
 
-        }else{
+        }else if (fahrenheitAtivo != 1){
 
             temperatureElement.innerText = Math.trunc((Number(data.main.temp) * (9/5)) + 32) + "°"
             feelslike.innerText = Math.trunc((Number(data.main.feels_like) * (9/5)) + 32) + "°"
@@ -184,22 +214,29 @@ async function converteTemperatura(){
             }
         }
 
+        fahrenheitAtivo = 1
+        celciusAtivo = 0
+
     }else{
 
-        if (cityInput.value == "") {
+        if (cityInput.value == "" && celciusAtivo != 1) {
             
-            temperatureElement.innerText = "20°"
-            feelslike.innerText = "18°"
+            temperatureElement.innerText = Math.trunc(Number(temperatureElement.innerText.slice(0, -1) - 32) * 5/9) + "°"
+            feelslike.innerText = Math.trunc(Number(feelslike.innerText.slice(0, -1) - 32) * 5/9) + "°"
 
             pTempMax.forEach(element => {
-                element.innerText = "20°"
+                element.innerText = Math.trunc(Number(element.innerText.slice(0, -1) - 32) * 5/9) + "°"
             });
 
             pTempMin.forEach(element => {
-                element.innerText = "12°"
+                element.innerText = Math.trunc(Number(element.innerText.slice(0, -1) - 32) * 5/9) + "°"
             });
 
-        }else{
+            ptempHora.forEach(element => {
+                element.innerText = Math.trunc(Number(element.innerText.slice(0, -1) - 32) * 5/9) + "°"
+            });
+
+        }else if (celciusAtivo != 1){
 
             temperatureElement.innerText = Math.trunc(data.main.temp) + "°"
             feelslike.innerText = Math.trunc(data.main.feels_like) + "°"
@@ -219,20 +256,11 @@ async function converteTemperatura(){
                 ptempHora[i].innerText = Math.trunc(Number(tempHorariosDia[[i]])) + "°"
             }
         }
+
+        celciusAtivo = 1
+        fahrenheitAtivo = 0
     }
 }
-
-async function telaInicial() {
-    
-    let url = `https://ipinfo.io/json?token=${apiKey2}`
-
-    let response = await fetch(url)
-    let data = await response.json()
-
-    await showWeatherData(data.city)
-}
-
-telaInicial()
 
 async function converteVelocidade(){
 
@@ -240,26 +268,32 @@ async function converteVelocidade(){
     const data = await getWheatherData(cityInput.value)
 
     if (verificaChecked.classList.contains("checked")) {  
-        
-        if (cityInput.value == "") {
-            
-            windElement.innerText = "9 mph"
 
-        }else{
+        if (cityInput.value == "" && mphAtivo != 1) {
+            
+            windElement.innerText = (Number(windElement.innerText.split(" ")[0]) / 1.60934).toFixed(1) + " mph"
+
+        }else if(mphAtivo != 1){
 
             windElement.innerText = (Number(data.wind.speed) / 1.60934).toFixed(1) + " mph"
         }
 
+        mphAtivo = 1
+        kmhAtivo = 0
+
     }else{
 
-        if (cityInput.value == "") {
+        if (cityInput.value == "" && kmhAtivo != 1) {
             
-            windElement.innerText = "14 km/h"
+            windElement.innerText = (Number(windElement.innerText.split(" ")[0]) * 1.60934).toFixed(1) + " mph"
 
-        }else{
+        }else if(kmhAtivo != 1){
 
             windElement.innerText = (data.wind.speed).toFixed(1) + " km/h"
         }
+
+        mphAtivo = 0
+        kmhAtivo = 1
     }
 }
 
@@ -267,59 +301,156 @@ async function converteComprimento(){
 
     let verificaChecked = document.getElementById("in")
     const data = await getWheatherData(cityInput.value)
+    let data2 = ""
 
-    console.log(data.coord.lon)
-
-    const data2 = await getOpenMeteoData2(data.coord.lon, data.coord.lat)
+    if(data != 400 && data != 404)
+        data2 = await getOpenMeteoData2(data.coord.lon, data.coord.lat)
 
     if (verificaChecked.classList.contains("checked")) {  
         
-        if (cityInput.value == "") {
+        if (cityInput.value == "" && inAtivo != 1) {
             
-            precepitationElement.innerText = "0 in"
+            precepitationElement.innerText = (Number(precepitationElement.innerText.split(" ")[0]) / 25.4).toFixed(1) + " in"
 
-        }else{
+        }else if (inAtivo != 1){
 
             precepitationElement.innerText = (Number(data2.current.precipitation) / 25.4).toFixed(1) + " in"
         }
 
+        inAtivo = 1
+        mmAtivo = 0
+
     }else{
 
-        if (cityInput.value == "") {
+        if (cityInput.value == "" && mmAtivo != 1) {
             
-            precepitationElement.innerText = "0 mm"
+            precepitationElement.innerText = (Number(precepitationElement.innerText.split(" ")[0]) * 25.4).toFixed(1) + " mm"
 
-        }else{
+        }else if (mmAtivo != 1){
 
             precepitationElement.innerText = Math.trunc(data2.current.precipitation).toFixed(1) + " mm"
+        }
+
+        inAtivo = 0
+        mmAtivo = 1
+    }
+}
+
+async function telaInicial() {
+    
+    let url = `https://ipinfo.io/json?token=${apiKey2}`
+    let mainErro = document.getElementsByClassName("main-erro")
+
+    try {
+        
+        let response = await fetch(url)
+        let data = await response.json()
+
+        await showWeatherData(data.city)
+
+    } catch (error) {   
+        
+        if(mainErro[0] == undefined)
+            apiErro()
+
+        else{
+
+            mainErro.remove()
+            apiErro()
         }
     }
 }
 
+telaInicial()
+
+function apiErro() {
+    
+    let body = document.getElementsByTagName("body")
+    let main = document.getElementById("conteudo")
+    main.style.display = "none"
+
+    let mainErro = document.createElement("main")
+    mainErro.classList.add("main-erro")
+    mainErro.innerHTML = `<img class="img-erro" src='./assets/images/icon-error.svg'>
+                          <h1 class="titulo-erro">Something went wrong</h1>
+                          <p class="texto-erro">We couldn't connect to the server (API error). Please
+                          try again in a few moments.</p>
+                          <button class="button-erro" onclick="telaInicial()">
+                            <img src="./assets/images/icon-retry.svg" alt=""> Retry
+                          </button>`
+
+    body[0].appendChild(mainErro)
+}
+
 const getWheatherData = async(city) =>{
+
+    let mainErro = document.getElementsByClassName("main-erro")
 
     const apiWheatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}&lang=en`
 
     const res = await fetch(apiWheatherURL)
     const data = await res.json()
 
-    console.log(data)
-    return data
+    if (data.cod == 200) {
+        
+        return data
+
+    }else if (data.cod == 400 || data.cod == 404){
+
+        return data.cod
+
+    }else{
+
+        if(mainErro[0] == undefined)
+            apiErro()
+
+        else{
+
+            mainErro.remove()
+            apiErro()
+        }
+    }
 }
 
 const getOpenMeteoData2 = async(lon, lat) =>{
 
-    const apiOpenMeteo = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weather_code&current=temperature_2m,apparent_temperature,is_day,precipitation,weather_code`
+    let mainErro = document.getElementsByClassName("main-erro")
 
-    const res = await fetch(apiOpenMeteo)
-    const data = await res.json()
+    if (lon != "") {
 
-    console.log(data)
+        const apiOpenMeteo = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weather_code&current=temperature_2m,apparent_temperature,is_day,precipitation,weather_code`
 
-    return data
+        const res = await fetch(apiOpenMeteo)
+        const data = await res.json()
+        
+        return data
+
+    }else{
+
+          if(mainErro[0] == undefined)
+            apiErro()
+
+        else{
+
+            mainErro.remove()
+            apiErro()
+        }
+    }
+
+    return ""
+    
 }
 
 const showWeatherData = async (city) =>{
+
+    const cityElement = document.getElementById("city")
+    const dayElement = document.getElementById("day")
+    const temperatureElement = document.getElementById("temperature")
+    const humidityElement = document.getElementById("humidity")
+    const windElement = document.getElementById("windElement")
+    const feelslike = document.getElementById("feelslike")
+    const iconTempo = document.getElementById("iconTempo")
+    const precepitationElement = document.getElementById("precepitationElement")
 
     const data = await getWheatherData(city)
     const data2 = await getOpenMeteoData2(data.coord.lon, data.coord.lat)
@@ -334,11 +465,9 @@ const showWeatherData = async (city) =>{
     
     cityElement.innerText = `${data.name}, ${pais.of(data.sys.country)}`
     temperatureElement.innerText = Math.trunc(data.main.temp) + "°"
-    converteTemperatura()
 
     humidityElement.innerText = data.main.humidity + "%"
     windElement.innerText = (data.wind.speed).toFixed(1) + " km/h"
-    converteVelocidade()
 
     feelslike.innerText = Math.trunc(data.main.feels_like) + "°"
     dayElement.innerText = `${nomeDia}, ${mes.charAt(0).toUpperCase() + mes.slice(1)} ${dia}, ${ano}`
@@ -523,19 +652,271 @@ const showWeatherData = async (city) =>{
     
 }
 
+function createSkeletonSection2() {
+    
+    let aux 
+    
+    aux = `<div id="skeleton"> 
+    
+                <div class="skeleton skeleton-dots">
+                    <p>Loading</p>
+
+                    <div class="dots">`
+    
+    for (let i = 0; i < 15; i++) {
+        
+        aux += `<span style="--i:${i};"></span>`
+    }
+    
+        aux += `    </div>
+                </div>
+                
+                <div class="skeleton-cards">
+                    <div class="skeleton skeleton-card">
+                        <p>Feels Like</p>
+                        <p>-</p>
+                    </div>
+                    <div class="skeleton skeleton-card">
+                        <p>Humidity</p>
+                        <p>-</p>
+                    </div>
+                    <div class="skeleton skeleton-card">
+                        <p>Wind</p>
+                        <p>-</p>
+                    </div>
+                    <div class="skeleton skeleton-card">
+                        <p>Precepitation</p>
+                        <p>-</p>
+                    </div>
+                </div>
+
+                <p class="text-skeleton">Daily forecast</p>
+
+                <div class="skeleton-cards2">
+                    <div class="skeleton skeleton-card2">
+                    </div>
+                    <div class="skeleton skeleton-card2">
+                    </div>
+                    <div class="skeleton skeleton-card2">
+                    </div>
+                    <div class="skeleton skeleton-card2">
+                    </div>
+                    <div class="skeleton skeleton-card2">
+                    </div>
+                    <div class="skeleton skeleton-card2">
+                    </div>
+                    <div class="skeleton skeleton-card2">
+                    </div>
+                </div>
+            </div>
+        
+            `
+
+    return aux
+}
+
+function createSkeletonAside() {
+    
+    return `
+    
+                <p>Hourly forecast</p>
+                
+                        <div class="container">
+                            <div class="select-btn" id="menu2">
+
+                                <span class="btn-text">-</span>
+                                <span class="arrow-dwn">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </span>
+                            </div>
+                        </div>
+            
+                <div class="skeleton-cards3">
+                    <div class="skeleton skeleton-card3"></div>
+                    <div class="skeleton skeleton-card3"></div>
+                    <div class="skeleton skeleton-card3"></div>
+                    <div class="skeleton skeleton-card3"></div>
+                    <div class="skeleton skeleton-card3"></div>
+                    <div class="skeleton skeleton-card3"></div>
+                    <div class="skeleton skeleton-card3"></div>
+                    <div class="skeleton skeleton-card3"></div>
+                </div>
+           `
+
+}
+
+function loadData() {
+    
+    const conteudo = document.getElementById("conteudo")
+    const articleSketch = document.createElement("section")
+    const asideSketch = document.createElement("aside")
+
+    articleSketch.classList.add("espacamentoSection")
+    articleSketch.innerHTML += createSkeletonSection2() 
+    asideSketch.innerHTML += createSkeletonAside()
+
+    secao2.style.display = "none"
+    aside.style.display = "none"
+    
+    conteudo.appendChild(articleSketch)
+    conteudo.appendChild(asideSketch)
+
+    showWeatherData(cityInput.value)
+
+    setTimeout(() =>{
+        
+        const secao2 = document.querySelector(".secao2")
+        const aside = document.getElementById("aside")
+
+        secao2.style.display = "block"
+        aside.style.display = "flex"
+
+        if(articleSketch)
+            articleSketch.remove()
+
+        if(asideSketch)
+            asideSketch.remove()
+
+        
+
+    }, 2000)
+}
+
+async function cidadeNaoEncontrada() {
+
+    let aux = await getWheatherData(cityInput.value)
+
+    if (cityInput.value && aux != 400 && aux != 404) {
+
+        loadData()
+
+    }else{
+
+        secao2.style.display = "none"
+        aside.style.display = "none"
+
+        const sectionErroFound = document.createElement("section")
+        sectionErroFound.classList.add("section-erro-found")
+        sectionErroFound.innerHTML = "<p class='erro-found'>No search result found!</p>"
+
+        conteudo.appendChild(sectionErroFound)
+    }
+}
+
 searchBtn.addEventListener("click", (e) => {
 
     e.preventDefault()
-    
-    const city = cityInput.value
-    showWeatherData(city)
+
+    const sectionErroFound = document.querySelector(".section-erro-found")
+
+    if(sectionErroFound)
+        sectionErroFound.remove()
+    cidadeNaoEncontrada()
+
+    removeElements()
+
+    let items = document.querySelectorAll(".list-items2")
+
+    if (items[0] == undefined){
+
+        let ulCity = document.querySelector(".list-city")
+        ulCity.style.padding = "0px"
+
+    }else{
+
+        let ulCity = document.querySelector(".list-city")
+        ulCity.style.padding = "10px"
+    }
+        
 })
 
 cityInput.addEventListener("keyup", (e) =>{
 
-    if (e.code === "Enter") {
-        const city = e.target.value
+    removeElements()
 
-        showWeatherData(city)
+    for(let i of sortedCitys){
+
+        if(i.toLocaleLowerCase().startsWith(cityInput.value.toLowerCase()) && cityInput.value != ""){
+
+            let listItem = document.createElement("li")
+
+            listItem.classList.add("list-items2")
+            listItem.style.cursor = "pointer"
+            listItem.setAttribute("onclick", "displayCity('" + i + "')")
+        
+            let word = "<span class='city-bold'>" + i.substr(0, cityInput.value.length) + "</span>"
+            
+            word += i.substr(cityInput.value.length)
+
+            listItem.innerHTML = word
+            document.querySelector(".list-city").appendChild(listItem)
+        }
+    }
+
+    let items = document.querySelectorAll(".list-items2")
+
+    if (items[0] == undefined){
+
+        let ulCity = document.querySelector(".list-city")
+        ulCity.style.padding = "0px"
+
+    }else{
+
+        let ulCity = document.querySelector(".list-city")
+        ulCity.style.padding = "10px"
+    }
+        
+
+    if (e.code === "Enter") {
+
+        removeElements()
+
+        let items = document.querySelectorAll(".list-items2")
+
+        if (items[0] == undefined){
+
+            let ulCity = document.querySelector(".list-city")
+            ulCity.style.padding = "0px"
+
+        }else{
+
+            let ulCity = document.querySelector(".list-city")
+            ulCity.style.padding = "10px"
+        }
+
+        const sectionErroFound = document.querySelector(".section-erro-found")
+
+        if(sectionErroFound)
+            sectionErroFound.remove()
+        cidadeNaoEncontrada()
     }
 })
+
+function displayCity(value) {
+    
+    cityInput.value = value
+    removeElements()
+
+    let items = document.querySelectorAll(".list-items2")
+
+    if (items[0] == undefined){
+
+        let ulCity = document.querySelector(".list-city")
+        ulCity.style.padding = "0px"
+
+    }else{
+
+        let ulCity = document.querySelector(".list-city")
+        ulCity.style.padding = "10px"
+    }
+}
+
+function removeElements() {
+    
+    let items = document.querySelectorAll(".list-items2")
+
+    items.forEach((item) => {
+
+        item.remove()
+    })   
+}

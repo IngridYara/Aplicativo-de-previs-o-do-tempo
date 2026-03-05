@@ -271,7 +271,7 @@ main > section > .busca {
     width: 100%;
     display: flex;
     justify-content:center;
-    
+    align-items: flex-start;
     
 }
 
@@ -285,8 +285,8 @@ main > section > .busca > div {
 main > section > .busca > div img{
 
     position: absolute;
-    top:30%;
-    left: 3%;
+    top: 15px;
+    left: 18px;
 }
 
 main > section > .busca > div input{
@@ -298,15 +298,47 @@ main > section > .busca > div input{
     width: 100%;
     color:hsl(250, 6%, 84%);
     font-size: 1em;
-    padding-left: 65px;
+    padding-left: 50px;
     
 }
 
 main > section > .busca > div input::placeholder{
 
     color:hsl(240, 6%, 70%);
-    
 
+}
+
+ul.list-city{
+
+    list-style: none;
+    background-color: hsl(243, 27%, 20%);
+    color: hsl(0, 0%, 100%);
+    display: flex;
+    text-align: left;
+    padding: px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+li.list-items2{
+
+    width: 100%;
+    padding: 7px;
+    border-radius: 9px;
+    font-weight: 300;
+    
+}
+
+li.list-items2:hover{
+
+    background-color: hsl(243, 23%, 24%);
+    border: 1px solid hsla(240, 6%, 70%, 0.3);
+
+}
+
+span.city-bold{
+
+    font-weight: 600;
 }
 
 main > section > .busca > button{
@@ -317,7 +349,6 @@ main > section > .busca > button{
     border-radius: 10px;
     width: 8%;
     color:hsl(250, 6%, 84%);
-
     font-size: 1em;
 }
 
@@ -514,6 +545,7 @@ aside > div.container {
 
     margin: 0;
     padding: 0;
+   
 }
 
 aside > div.container .select-btn{
@@ -562,6 +594,231 @@ aside > div.horarios > div.horario > div > img{
 
    max-width: 20%;
 }
+
+.skeleton{
+
+    background: hsl(243, 27%, 20%);
+    position: relative;
+    height: 10vh;
+
+    height: 300px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 0 30px 30px 30px;
+    width: 100%;
+    border-radius: 20px;
+    
+}
+
+.skeleton::after{
+
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: 50%;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.08) 50%, transparent 100%);
+    animation: shimer 1s infinite;
+}
+
+.skeleton > p{
+
+    color: hsl(250, 6%, 84%);
+    font-size: 1.2em;
+}
+
+.skeleton-cards{
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 30px;
+    background: transparent;
+    animation: none;
+    width: 100%;
+}
+
+.skeleton-card{
+
+    background-color:hsl(243, 27%, 20%);
+    flex-flow: column wrap;
+    padding: 15px 20px;
+    border-radius: 10px;
+    width: 23%;
+    height: 100px;
+    border: 1px solid hsla(240, 6%, 70%, 0.3);
+    justify-content: space-between;
+    align-content: flex-start;
+    align-items: start;
+
+}
+
+.text-skeleton{
+
+    font-size: 1.4em;
+    color:  hsl(0, 0%, 100%);
+    margin-bottom: 10px;
+    margin-top: 20px;
+
+}
+
+.skeleton-cards2{
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.skeleton-card2{
+    
+    background-color:hsl(243, 27%, 20%);
+    padding: 0px 10px 0 10px;
+    border-radius: 10px;
+    width: 12%;
+    height: 155px;
+}
+
+.skeleton-cards3{
+
+    width: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.skeleton-card3{
+
+    background-color: hsl(243, 23%, 24%);
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 12px;
+    border-radius: 7px;
+    height: 50px;
+
+}
+
+.dots span{
+
+    position: absolute;
+    left: 49.5%;
+    top: 44%;
+    height: 10px;
+    width: 10px;
+    background: #fff;
+    border-radius: 50%;
+    transform: rotate(calc(var(--i) * (360deg/15))) translateY(50px);
+    animation: animate 1.5s linear infinite;
+    animation-delay: calc(var(--i) * 0.1s);
+    opacity: 0;
+}
+
+.espacamentoSection{
+
+    margin-top: 40px;
+    width: 65%;
+    padding-right: 0px;
+    margin-right: 30px;
+}
+
+.section-erro-found{
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 100%;
+    margin-top: 50px;
+}
+
+.erro-found{
+
+    color: hsl(0, 0%, 100%);
+    font-size: 2em;
+    font-weight: 700;
+}
+
+.hidden{
+
+    display: none;
+}
+
+.main-erro{
+
+    display: flex;
+    flex-flow: column wrap;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+}
+
+.img-erro{
+
+    margin-bottom: 20px;
+    width: 3%;
+}
+
+.titulo-erro{
+
+    color: hsl(0, 0%, 100%);
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-weight: 600;
+    font-size: 3.5em;
+}
+
+.texto-erro{
+
+    width: 40%;
+    color: hsl(240, 6%, 70%);
+    font-size: 1.1em;
+    font-weight: 500;
+    margin: 20px 0;
+}
+
+.button-erro{
+
+    background-color: hsl(243, 27%, 20%);
+    padding: 10px;
+    font-size: 1em;
+    color: hsl(250, 6%, 84%);
+    display: flex;
+    gap: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.button-erro:hover{
+
+    background-color: hsl(243, 23%, 24%);
+}
+
+@keyframes animate {
+    
+    0%{
+        opacity: 1;
+
+    }100%{
+
+        opacity: 0;
+    }
+
+}
+
+@keyframes shimer {
+    
+    0%{
+
+        transform: translateX(0%);
+
+    }100%{
+
+        transform: translateX(100%);
+    }
+}
+
 
 @media screen and (min-width: 375px) and (max-width:400px){
     
@@ -732,6 +989,64 @@ aside > div.horarios > div.horario > div > img{
     aside > .horarios .horario {
 
         align-items: center;
+    }
+
+    .skeleton-cards{
+
+        justify-content: space-evenly;
+    }
+
+    .skeleton-card{
+
+        width: 48%;
+    }
+
+    .skeleton-cards2{
+
+        gap: 10px;
+    }
+
+    .skeleton-card2{
+
+        width: 30%;
+    }
+
+    .skeleton-card > p{
+
+        font-size: 1em;
+    }
+
+    
+    .espacamentoSection{
+
+        margin-top: 20px;
+        width: 100%;
+        padding-right: 0px;
+        margin-right: 0px;
+    }
+
+    
+    .img-erro{
+
+        margin-bottom: 20px;
+        width: 10%;
+    }
+
+    .titulo-erro{
+
+        color: hsl(0, 0%, 100%);
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 600;
+        font-size: 3em;
+    }
+
+    .texto-erro{
+
+        width: 100%;
+        color: hsl(240, 6%, 70%);
+        font-size: 1.1em;
+        font-weight: 500;
+        margin: 20px 0;
     }
 }
 
@@ -912,6 +1227,62 @@ aside > div.horarios > div.horario > div > img{
     aside > .horarios .horario {
 
         align-items: center;
+    }
+
+    .skeleton-cards{
+
+        justify-content: space-evenly;
+    }
+
+    .skeleton-card{
+
+        width: 48%;
+    }
+
+    .skeleton-cards2{
+
+        gap: 10px;
+    }
+
+    .skeleton-card2{
+
+        width: 30%;
+    }
+
+    .skeleton-card > p{
+
+        font-size: 1em;
+    }
+
+    .espacamentoSection{
+
+        margin-top: 20px;
+        width: 100%;
+        padding-right: 0px;
+        margin-right: 0px;
+    }
+
+    .img-erro{
+
+        margin-bottom: 20px;
+        width: 10%;
+    }
+
+    .titulo-erro{
+
+        color: hsl(0, 0%, 100%);
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 600;
+        font-size: 3em;
+    }
+
+    .texto-erro{
+
+        width: 100%;
+        color: hsl(240, 6%, 70%);
+        font-size: 1.1em;
+        font-weight: 500;
+        margin: 20px 0;
     }
 }
 
@@ -1099,6 +1470,62 @@ aside > div.horarios > div.horario > div > img{
 
         font-size: 1.2em;
     }
+
+    .skeleton-cards{
+
+        justify-content: space-evenly;
+    }
+
+    .skeleton-card{
+
+        width: 48%;
+    }
+
+    .skeleton-cards2{
+
+        gap: 10px;
+    }
+
+    .skeleton-card2{
+
+        width: 30%;
+    }
+
+    .skeleton-card > p{
+
+        font-size: 1em;
+    }
+
+    .espacamentoSection{
+
+        margin-top: 20px;
+        width: 100%;
+        padding-right: 0px;
+        margin-right: 0px;
+    }
+
+    .img-erro{
+
+        margin-bottom: 20px;
+        width: 10%;
+    }
+
+    .titulo-erro{
+
+        color: hsl(0, 0%, 100%);
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 600;
+        font-size: 3em;
+    }
+
+    .texto-erro{
+
+        width: 80%;
+        color: hsl(240, 6%, 70%);
+        font-size: 1.1em;
+        font-weight: 500;
+        margin: 20px 0;
+    }
 }
 
 @media screen and (min-width: 769px) and (max-width:900px){
@@ -1155,7 +1582,7 @@ aside > div.horarios > div.horario > div > img{
 
         flex-flow: row wrap;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
         gap: 20px;
         
     }
@@ -1285,6 +1712,40 @@ aside > div.horarios > div.horario > div > img{
 
         font-size: 1.2em;
     }
+
+    .skeleton-cards{
+
+        justify-content: space-evenly;
+    }
+
+    .skeleton-card{
+
+        width: 48%;
+    }
+
+    .skeleton-cards2{
+
+        justify-content: flex-start;
+        gap: 10px;
+    }
+
+    .skeleton-card2{
+
+        width: 20%;
+    }
+
+    .skeleton-card > p{
+
+        font-size: 1em;
+    }
+
+    .espacamentoSection{
+
+        margin-top: 20px;
+        width: 100%;
+        padding-right: 0px;
+        margin-right: 0px;
+    }
 }
 
 @media screen and (min-width: 901px) and (max-width:1000px){
@@ -1341,7 +1802,7 @@ aside > div.horarios > div.horario > div > img{
 
         flex-flow: row wrap;
         justify-content: center;
-        align-items: center;
+        align-items: start;
         gap: 20px;
         
     }
@@ -1471,6 +1932,40 @@ aside > div.horarios > div.horario > div > img{
 
         font-size: 1.2em;
     }
+
+    .skeleton-cards{
+
+        justify-content: space-evenly;
+    }
+
+    .skeleton-card{
+
+        width: 48%;
+    }
+
+    .skeleton-cards2{
+
+        justify-content: flex-start;
+        gap: 10px;
+    }
+
+    .skeleton-card2{
+
+        width: 20%;
+    }
+
+    .skeleton-card > p{
+
+        font-size: 1em;
+    }
+
+    .espacamentoSection{
+
+        margin-top: 20px;
+        width: 100%;
+        padding-right: 0px;
+        margin-right: 0px;
+    }
 }
 
 @media screen and (min-width: 1001px) and (max-width:1200px) {
@@ -1522,7 +2017,7 @@ aside > div.horarios > div.horario > div > img{
 
     main > section > .fundo-tempo .temperatura {
 
-        margin-left: 30px;
+        margin-left: 10px;
         max-width: 45%;
 
     }
@@ -1563,6 +2058,55 @@ aside > div.horarios > div.horario > div > img{
     main > section > .semana .dias .dia img{
 
         max-width: 80%;
+    }
+
+    aside > p{
+
+        font-size: 1em;
+    }
+
+    aside .container #menu2{
+
+        padding-left: 5px;
+        padding-right: 0px;
+    }
+
+    aside .container #menu2 span{
+
+        font-size: 0.8em;
+    }
+
+    .skeleton-cards{
+
+        justify-content: flex-start;
+    }
+
+    .skeleton-card{
+
+        width: 25%;
+    }
+
+    .skeleton-cards2{
+
+        gap: 10px;
+        justify-content: flex-start;
+    }
+
+    .skeleton-card2{
+
+        width: 17%;
+        
+    }
+
+    .skeleton-card > p{
+
+        font-size: 1em;
+    }
+
+    .espacamentoSection{
+
+        width: 63%;
+        margin-right: 20px;
     }
 
 }
@@ -1617,7 +2161,7 @@ aside > div.horarios > div.horario > div > img{
     main > section > .fundo-tempo .temperatura {
 
         margin-left: 30px;
-        max-width: 45%;
+        max-width: 40%;
 
     }
 
@@ -1636,7 +2180,7 @@ aside > div.horarios > div.horario > div > img{
 
     main > section > .cards-info .card{
 
-        width: 21%;
+        width: 22%;
     }
 
     main > section > .cards-info .card .descricao{
@@ -1646,7 +2190,7 @@ aside > div.horarios > div.horario > div > img{
 
     main > section > .cards-info .card .descricao-temp{
 
-        font-size: 1.3em;
+        font-size: 1.2em;
     }
 
     main > section > .semana .dias .dia{
@@ -1659,6 +2203,40 @@ aside > div.horarios > div.horario > div > img{
         max-width: 80%;
     }
 
+    .skeleton-cards{
+
+        justify-content: flex-start;
+        gap: 5px;
+    }
+
+    .skeleton-card{
+
+        margin: 0;
+        width: 24%;
+    }
+
+    .skeleton-card p{
+
+       font-size: 0.9em;
+    }
+
+    .skeleton-cards2{
+
+        gap: 10px;
+        justify-content: flex-start;
+    }
+
+    .skeleton-card2{
+
+        width: 17%;
+        
+    }
+
+    .espacamentoSection{
+
+        width: 63%;
+        margin-right: 20px;
+    }
 }
 
 @media screen and (min-width: 1366px) and (max-width:1799px) {
@@ -1771,5 +2349,21 @@ aside > div.horarios > div.horario > div > img{
         margin-top: 0px;
     }
 
+    .skeleton-cards2{
 
+        gap: 10px;
+        justify-content: flex-start;
+    }
+
+    .skeleton-card2{
+
+        width: 17%;
+        
+    }
+
+    .espacamentoSection{
+
+        width: 63%;
+        margin-top: 0;
+    }
 }

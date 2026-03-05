@@ -42,7 +42,7 @@
             <span class="item-text legenda">Temperature</span>
           </li>
           
-          <li class="item" id="celcius">
+          <li class="item checked" id="celcius">
             <span class="item-text">Celsius (°C)</span>
             <span class="checkbox">
               <i class="fa-solid fa-check check-icon"></i>
@@ -62,7 +62,7 @@
             <span class="item-text legenda">Wind Speed</span>
           </li>
 
-          <li class="item" id="km/h">
+          <li class="item checked" id="km/h">
             <span class="item-text">Km/h</span>
             <span class="checkbox">
               <i class="fa-solid fa-check check-icon"></i>
@@ -82,7 +82,7 @@
             <span class="item-text legenda">Precepitation</span>
           </li>
 
-          <li class="item" id="mm">
+          <li class="item checked" id="mm">
               <span class="item-text">Millimeters (mm)</span>
               <span class="checkbox">
                 <i class="fa-solid fa-check check-icon"></i>
@@ -102,13 +102,14 @@
     </nav>
   </header>
 
-  <main>
+  <main id="conteudo">
     <section class="secao1">
       <h1>How's the sky looking today?</h1>
       <article class="busca">
         <div>
           <img src="./assets/images/icon-search.svg" alt="">
           <input type="text" name="" id="city-input" placeholder="Search for a place..." autocomplete="off">
+          <ul class="list-city"></ul>
         </div>
         <button type="submit" id="search">Search</button>
       </article>
@@ -212,14 +213,14 @@
       </article>
     </section>
 
-    <aside>
+    <aside id="aside">
 
       <p>Hourly forecast</p>
 
       <div class="container">
         <div class="select-btn" id="menu2">
 
-          <span class="btn-text">Tuesday</span>
+          <span class="btn-text" id="nomeSelecionado">Tuesday</span>
           <span class="arrow-dwn">
             <i class="fa-solid fa-chevron-down"></i>
           </span>
