@@ -820,7 +820,7 @@ aside > div.horarios > div.horario > div > img{
 }
 
 
-@media screen and (min-width: 375px) and (max-width:400px){
+@media screen and (max-width:400px){
     
     header{
 

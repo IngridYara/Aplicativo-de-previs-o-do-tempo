@@ -866,7 +866,6 @@ cityInput.addEventListener("keyup", (e) =>{
         ulCity.style.padding = "10px"
     }
         
-
     if (e.code === "Enter") {
 
         removeElements()
